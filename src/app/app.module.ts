@@ -7,6 +7,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { MapServices } from './shared/map.service';
+import { AppService } from './shared/app.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,7 @@ import { HomeComponent } from './home/home.component';
       apiKey: 'AIzaSyCHY86W7jVXHyVRUgwTpV0ZHjbQCTJSPGw'
     })
   ],
-  providers: [],
+  providers: [ AppService, MapServices ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
