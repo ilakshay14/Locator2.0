@@ -1,8 +1,9 @@
 <!-- <agm-map [latitude]="lat" [longitude]="lng">
   <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 </agm-map> -->
-
+<div class="parentDiv">
 <div class="gmap" #gmap></div>
+
 <form class="form-inline" (ngSubmit)="fetchLocationByPin(f)" #f="ngForm">
   <div class="form-group mx-sm-3 mb-2">
     <input type="text" class="form-control" name="pinCode" placeholder="pin code" ngModel>
@@ -25,7 +26,7 @@
   <h3>Location found. Loading data...</h3>
 </div>
 
-<div style="margin-left: 18px;">
+<div class="place_results">
   <div class="card" style="width: 15rem;" *ngFor="let item of results">
     <img class="card-img-top" src="{{ item.icon }}" alt="Card image cap">
     <div class="card-body">
@@ -42,9 +43,7 @@
             class="btn btn-primary">Directions</a>
         </li>
       </ul>
-
-
-
     </div>
   </div>
+</div>
 </div>

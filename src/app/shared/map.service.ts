@@ -8,13 +8,13 @@ export class MapServices {
 
     results;
     locationFound = false;
-    placeType: string = 'restaurant';
+    placeType = 'restaurant';
 
     private latitude = 0.0;
     private longitude = 0.0;
     map: google.maps.Map;
 
-    getPlacesResults () {
+    getPlacesResults() {
         return this.results;
     }
 
@@ -40,7 +40,7 @@ export class MapServices {
             } else {
 
             }
-        })
+        });
     }
 
     fetchPlaces(gmapElement) {

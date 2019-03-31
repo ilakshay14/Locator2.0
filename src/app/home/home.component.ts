@@ -13,14 +13,14 @@ export class HomeComponent implements OnInit {
   lat = 51.678418;
   lng = 7.809007;
 
-  results;
+  results = [];
   locationFound = false;
-  placeType: string = 'restaurant';
+  placeType = 'restaurant';
 
   private latitude = 0.0;
   private longitude = 0.0;
 
-  constructor (private appService : AppService) {}
+  constructor(private appService: AppService) {}
 
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
@@ -33,6 +33,9 @@ export class HomeComponent implements OnInit {
 
   fetchLocation() {
     this.results = this.appService.fetchPlacesWithAutoDetectLocation(this.gmapElement);
+    // if( this.results != undefined) {
+    //   alert(this.results);
+    // }
   }
 
   fetchLocationByPin(form: NgForm) {
