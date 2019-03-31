@@ -28,7 +28,7 @@ import { routing } from './shared/app.routing';
     FormsModule,
     AngularFontAwesomeModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCHY86W7jVXHyVRUgwTpV0ZHjbQCTJSPGw'
+      apiKey: '<ENTER YOUR API KEY HERE>'
     }),
     routing
   ],
