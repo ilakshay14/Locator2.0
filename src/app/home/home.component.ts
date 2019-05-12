@@ -69,22 +69,14 @@ export class HomeComponent implements OnInit {
     this.placesFetched = true;
     this.changeDetector.detectChanges();
 
-    const promise = new Promise(function(resolve, reject) {
-      let placeType;
-      if (form.value.type === "") {
-        placeType = "restaurant";
-        //console.log(placeType);
-      } else {
-        placeType = form.value.type;
-      }
+    let placeType;
+    if (form.value.type === "") {
+      placeType = "restaurant";
+      //console.log(placeType);
+    } else {
+      placeType = form.value.type;
+    }
 
-      this.appService.fetchPlaces(this.location, placeType, this.gmapElement);
-
-      resolve();
-    });
-
-    promise.then(function(data) {
-      console.log(data);
-    });
+    this.results = this.appService.fetchPlaces(this.location, placeType, this.gmapElement);
   }
 }
