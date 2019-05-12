@@ -1,30 +1,56 @@
-import { Injectable } from '@angular/core';
-import { MapServices } from './map.service';
+import { Injectable } from "@angular/core";
+import { MapServices } from "./map.service";
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: "root"
 })
 export class AppService {
-    constructor(private mapServices: MapServices) { }
+  constructor(private mapServices: MapServices) {}
 
-    private mapProp = {
-        center: new google.maps.LatLng(28.5879199, 77.0620314),
-        zoom: 16
-    };
+  location = {};
 
-    private placesResults: any;
+  private mapProp = {
+    center: new google.maps.LatLng(28.5879199, 77.0620314),
+    zoom: 16
+  };
 
-    getMapProp() {
-        return this.mapProp;
+  private users = [
+    { username: "admin", password: "" },
+    { username: "user1", password: "abc" }
+  ];
+
+  private placesResults: any;
+  private loginStatus: boolean = false;
+
+  userLogin(username: String) {
+    const result = this.users.find(X => X.username === username);
+    //alert(result.username);
+    if (result !== undefined) {
+      this.loginStatus = true;
     }
+    this.loginStatus = false;
+  }
 
-    fetchPlacesWithAutoDetectLocation(gmapElement) {
-        this.mapServices.autoDetectLocation(gmapElement);
-        return this.placesResults = this.mapServices.getPlacesResults();
-    }
+  getMapProp() {
+    return this.mapProp;
+  }
 
-    fetchPlacesWithPinCode(pincode, gmapElement) {
-        this.mapServices.detectLocationByPin(pincode, gmapElement);
-        return this.placesResults = this.mapServices.getPlacesResults();
-    }
+  getLoginStatus() {
+    return this.loginStatus;
+  }
+
+  fetchLocation(pincode, gmapElement) {
+    return (this.location = this.mapServices.detectLocation(
+      pincode,
+      gmapElement
+    ));
+  }
+
+  fetchPlaces(loc, placeType, gmapElement) {
+    return (this.placesResults = this.mapServices.fetchPlaces(
+      loc,
+      placeType,
+      gmapElement
+    ));
+  }
 }
