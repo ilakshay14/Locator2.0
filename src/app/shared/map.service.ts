@@ -1,66 +1,90 @@
-import { Injectable } from '@angular/core';
-import { debug } from 'util';
+import { Injectable } from "@angular/core";
+import { debug } from "util";
+import { Observable } from "rxjs";
+import { Location } from "./location.model";
 
 @Injectable({
-    providedIn: 'root',
+  providedIn: "root"
 })
 export class MapServices {
-    constructor() { }
+  constructor() {}
 
-    private results = [];
-    private locationFound = false;
-    //placeType = 'restaurant';
+  private results = [];
+  private locationFound = false;
+  //placeType = 'restaurant';
+  location = {
+    lat: 0.0,
+    lng: 0.0
+  };
 
-    private latitude = 0.0;
-    private longitude = 0.0;
-    map: google.maps.Map;
+  map: google.maps.Map;
 
-    detectLocation(pincode, gmapElement) {
-        if (pincode !== undefined) {
-            const geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'address': pincode }, (results, status) => {
-                if (status === google.maps.GeocoderStatus.OK) {
-                    console.log(`locaiton found using pincode ${pincode}`);
-                    this.locationFound = true;
-                    this.latitude = results[0].geometry.location.lat();
-                    this.longitude = results[0].geometry.location.lng();
-                    //await this.fetchPlaces(gmapElement);
-                }
-            });
+  setLocation(latitude: number, longitude: number) {
+    this.location.lat = latitude;
+    this.location.lng = longitude;
+  }
+
+  getLocation() {
+    return this.location;
+  }
+
+  detectLocationWithPinCode(pincode, gmapElement): Observable<Location> {
+    const geocoder = new google.maps.Geocoder();
+    return new Observable(observer => {
+      geocoder.geocode({ address: pincode }, (results, status) => {
+        if (status == google.maps.GeocoderStatus.OK) {
+          console.log("Geocoding complete!");
+          observer.next({
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          });
         } else {
-            navigator.geolocation.getCurrentPosition( (position) => {
-                console.log('locaiton found');
-                this.locationFound = true;
-                this.latitude = position.coords.latitude;
-                this.longitude = position.coords.longitude;
-                //await this.fetchPlaces(gmapElement);
-            }, () => {
-                alert('location not found');
-            }, { enableHighAccuracy: true });
+          console.log("Error - ", results, " & Status - ", status);
+          observer.next({ lat: 0, lng: 0 });
         }
+        observer.complete();
+      });
+    });
+  }
 
-        return {
-            lat: this.latitude,
-            lng : this.longitude
-        }
+  detectLocation(gmapElement, cb) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        this.locationFound = true;
 
-    }
+        this.setLocation(position.coords.latitude, position.coords.longitude);
+        //console.log(this.location);
+        cb(this.location);
+      },
+      () => {
+        alert("location not found");
+        return null;
+      },
+      { enableHighAccuracy: true }
+    );
+  }
 
-    fetchPlaces(location, placeType, gmapElement) {
-        
-        const service = new google.maps.places.PlacesService(gmapElement.nativeElement);
-        console.log('fetching places');
-        console.log(placeType);
-        
-        service.nearbySearch({
-            location: location,
-            radius: 5000,
-            type: placeType
-        }, async (results, status) => {
-            this.results = await results;
-            this.locationFound = false;
-        });
+  fetchPlaces(location, placeType, gmapElement) {
+    const service = new google.maps.places.PlacesService(
+      gmapElement.nativeElement
+    );
+    //console.log("fetching places");
+    //console.log(location);
 
-        return this.results;
-    }
+    service.nearbySearch(
+      {
+        location: location,
+        radius: 5000,
+        type: placeType
+      },
+      (results, status) => {
+        this.results = results;
+        console.log(results);
+
+        this.locationFound = false;
+      }
+    );
+
+    return this.results;
+  }
 }

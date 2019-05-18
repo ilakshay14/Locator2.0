@@ -1,13 +1,18 @@
-import { Injectable } from "@angular/core";
-import { MapServices } from "./map.service";
+import { Injectable, ChangeDetectorRef } from "@angular/core";
+import { delay } from "q";
+import { Location } from "./location.model";
+import { del } from "selenium-webdriver/http";
 
 @Injectable({
   providedIn: "root"
 })
 export class AppService {
-  constructor(private mapServices: MapServices) {}
+  constructor() {}
 
-  location = {};
+  location = {
+    lat: 0.0,
+    lng: 0.0
+  };
 
   private mapProp = {
     center: new google.maps.LatLng(28.5879199, 77.0620314),
@@ -39,18 +44,85 @@ export class AppService {
     return this.loginStatus;
   }
 
-  fetchLocation(pincode, gmapElement) {
-    return (this.location = this.mapServices.detectLocation(
-      pincode,
-      gmapElement
-    ));
+  setLocation(latitude: number, longitude: number) {
+    this.location.lat = latitude;
+    this.location.lng = longitude;
+  }
+
+  getLocation() {
+    return this.location;
+  }
+
+  fetchLocation(gmapElement) {
+    let loc;
+    do {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          this.location.lat = position.coords.latitude;
+          this.location.lng = position.coords.longitude;
+        },
+        () => {
+          alert("location not found");
+          return null;
+        },
+        { enableHighAccuracy: true }
+      );
+    } while (
+      this.location ===
+      {
+        lat: 0.0,
+        lng: 0.0
+      }
+    );
+    return this.location;
+  }
+
+  fetchLocationWithPin(pincode, gmapElement) {
+    // this.mapServices
+    //   .detectLocationWithPinCode(pincode, gmapElement)
+    //   .subscribe((loc: Location) => {
+    //     this.location = loc;
+    //   });
+    const geocoder = new google.maps.Geocoder();
+    geocoder.geocode({ address: pincode }, (results, status) => {
+      if (status == google.maps.GeocoderStatus.OK) {
+        console.log("Geocoding complete!");
+
+        this.location.lat = results[0].geometry.location.lat();
+        this.location.lng = results[0].geometry.location.lng();
+
+        console.log(results);
+        console.log(status);
+        console.log(this.location);
+      } else {
+      }
+    });
+
+    return this.location;
   }
 
   fetchPlaces(loc, placeType, gmapElement) {
-    return (this.placesResults = this.mapServices.fetchPlaces(
-      loc,
-      placeType,
-      gmapElement
-    ));
+    // this.placesResults = this.mapServices.fetchPlaces(
+    //   loc,
+    //   placeType,
+    //   gmapElement
+    // );
+    const service = new google.maps.places.PlacesService(
+      gmapElement.nativeElement
+    );
+
+    service.nearbySearch(
+      {
+        location: loc,
+        radius: 5000,
+        type: placeType
+      },
+      (results, status) => {
+        this.placesResults = results;
+        console.log(results);
+      }
+    );
+
+    return this.placesResults;
   }
 }

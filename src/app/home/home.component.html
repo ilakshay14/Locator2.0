@@ -44,7 +44,7 @@
   </div>
 
   <div class="place_results" #placeResults>
-    <div class="card" style="width: 15rem;" *ngFor="let item of results">
+    <div class="card" style="width: 15rem;" *ngFor="let item of this.results">
       <img class="card-img-top" src="{{ item.icon }}" alt="Card image cap" />
       <div class="card-body">
         <ul class="list-group list-group-flush">

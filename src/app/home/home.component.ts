@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ChangeDetectorRef } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { AppService } from "../shared/app.service";
 import axios from "axios";
-import { async } from "q";
+import { async, delay } from "q";
 
 @Component({
   selector: "app-home",
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   private latitude = 0.0;
   private longitude = 0.0;
 
-  location = {};
+  location;
   placesFetched = false;
 
   constructor(
@@ -41,42 +41,34 @@ export class HomeComponent implements OnInit {
   }
 
   fetchLocation(form: NgForm) {
-    //console.log(form.value);
-    if (form.value.pinCode !== undefined) {
+    console.log(form.value.pinCode);
+    if (form.value.pinCode !== "") {
       const pinCode = form.value.pinCode;
       //this.placeType = form.value.type;
-      this.location = this.appService.fetchLocation(pinCode, this.gmapElement);
-    } else {
-      this.location = this.appService.fetchLocation(
-        undefined,
+      this.location = this.appService.fetchLocationWithPin(
+        pinCode,
         this.gmapElement
       );
+    } else {
+      this.location = this.appService.fetchLocation(this.gmapElement);
+      
+      console.log(this.location);
     }
   }
 
   fetchPlace(form: NgForm) {
-    //console.log(form.value);
-    // let placeType;
-    // if (form.value.type === '') {
-    //   placeType = "restaurant";
-    //   //console.log(placeType);
-    // } else {
-    //   placeType = form.value.type;
-    // }
-
-    console.log(this.results);
-
-    this.placesFetched = true;
-    this.changeDetector.detectChanges();
 
     let placeType;
     if (form.value.type === "") {
       placeType = "restaurant";
-      //console.log(placeType);
     } else {
       placeType = form.value.type;
     }
 
-    this.results = this.appService.fetchPlaces(this.location, placeType, this.gmapElement);
+    this.results = this.appService.fetchPlaces(
+      this.location,
+      placeType,
+      this.gmapElement
+    );
   }
 }
