@@ -4,7 +4,7 @@
 <div class="parentDiv">
   <div class="gmap" #gmap></div>
   <!-- ================== LOCATION FORM ================== -->
-  <form class="form-inline" (ngSubmit)="fetchLocation(f)" #f="ngForm">
+  <form class="form-inline formLeft" (ngSubmit)="fetchLocation(f)" #f="ngForm">
     <div class="form-group mx-sm-3 mb-2">
       <input
         type="text"
@@ -37,11 +37,27 @@
       <fa name="search"></fa>
     </button>
   </form>
+  <!-- ================== TEXT ================== -->
+  <div class="row" *ngIf="this.locationFound === false">
+    <h3 class="font-weight-light"></h3>
+  </div>
+
+  <div class="row" *ngIf="this.locationFound === true">
+    <h3 class="font-weight-light">
+      {{ this.LocationFoundText }}
+    </h3>
+  </div>
+
+  <div
+    class="row"
+    *ngIf="this.locationFound === false && this.placesFound === true"
+  >
+    <h3 class="font-weight-light">
+      {{ this.PlacesFoundText }}
+    </h3>
+  </div>
 
   <!-- ================== RESUTS ================== -->
-  <div class="row" *ngIf="this.locationFound">
-    <h3>Location found. Loading data...</h3>
-  </div>
 
   <div class="place_results" #placeResults>
     <div class="card" style="width: 15rem;" *ngFor="let item of this.results">

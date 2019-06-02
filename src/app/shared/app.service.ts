@@ -1,13 +1,11 @@
 import { Injectable, ChangeDetectorRef } from "@angular/core";
-import { delay } from "q";
-import { Location } from "./location.model";
-import { del } from "selenium-webdriver/http";
+import { HttpService } from "./http.service";
 
 @Injectable({
   providedIn: "root"
 })
 export class AppService {
-  constructor() {}
+  constructor(private httpService: HttpService) {}
 
   location = {
     lat: 0.0,
@@ -27,13 +25,15 @@ export class AppService {
   private placesResults: any;
   private loginStatus: boolean = false;
 
-  userLogin(username: String) {
-    const result = this.users.find(X => X.username === username);
-    //alert(result.username);
-    if (result !== undefined) {
-      this.loginStatus = true;
-    }
-    this.loginStatus = false;
+  userLogin(username: string, password: string) {
+    console.log(`username ${username} and password ${password}`);
+    this.httpService.userLogin(username, password);
+    // const result = this.users.find(X => X.username === username);
+    // //alert(result.username);
+    // if (result !== undefined) {
+    //   this.loginStatus = true;
+    // }
+    // this.loginStatus = false;
   }
 
   getMapProp() {
