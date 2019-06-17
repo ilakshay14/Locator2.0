@@ -1,0 +1,17 @@
+.row {
+  padding: 20px;
+}
+
+.card {
+  display: block;
+}
+
+.content {
+  margin: 10px auto;
+}
+
+.card .card-title {
+  font-size: 1.12rem;
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+}

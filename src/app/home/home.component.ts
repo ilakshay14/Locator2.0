@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private appService: AppService,
     private changeDetector: ChangeDetectorRef
-  ) {}
+  ) { }
 
   @ViewChild("gmap") gmapElement: any;
   map: google.maps.Map;
@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit {
     const mapProp = this.appService.getMapProp();
 
     this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+    this.appService.setGmapElement(this.gmapElement);
   }
 
   fetchLocation(form: NgForm) {
@@ -91,5 +92,7 @@ export class HomeComponent implements OnInit {
     setTimeout(() => {
       this.placesFound = false;
     }, 1000);
+    console.log(this.results);
+
   }
 }

@@ -8,9 +8,22 @@
 
 .photo {
   object-fit: contain;
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+  margin: 0 auto;
 }
 
 .card {
   width: 20rem;
   margin: 0 auto;
+}
+
+.button-holder {
+  padding: 10px;
+}
+
+.before-login {
+  padding: 10px;
+  font-size: 24px;
 }

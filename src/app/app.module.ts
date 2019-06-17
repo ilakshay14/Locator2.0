@@ -15,6 +15,11 @@ import { LoginComponent } from './login/login.component';
 import { routing } from './shared/app.routing';
 import { HttpService } from './shared/http.service';
 import keys from './config/keys.js';
+import { SearchHistoryComponent } from './search-history/search-history.component';
+import { LocationHistoryComponent } from './location-history/location-history.component';
+import { FavouritesComponent } from './favourites/favourites.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { RouteGuardService } from './shared/routeGuard.service';
 
 const config = new AuthServiceConfig([
   {
@@ -23,7 +28,7 @@ const config = new AuthServiceConfig([
   },
   {
     id: FacebookLoginProvider.PROVIDER_ID,
-    provider: new FacebookLoginProvider(keys.google.facebook)
+    provider: new FacebookLoginProvider(keys.facebook.appID)
   }
 ]);
 
@@ -37,7 +42,11 @@ export function provideConfig() {
     HomeComponent,
     NavbarComponent,
     UserComponent,
-    LoginComponent
+    LoginComponent,
+    SearchHistoryComponent,
+    LocationHistoryComponent,
+    FavouritesComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +64,8 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
-    }
+    },
+    RouteGuardService
   ],
   bootstrap: [AppComponent]
 })

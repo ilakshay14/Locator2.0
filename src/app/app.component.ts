@@ -2,6 +2,8 @@
 
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { NavbarComponent } from './navbar/navbar.component';
+import { AppService } from './shared/app.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,11 @@ import { NgForm } from '@angular/forms';
 })
 
 export class AppComponent implements OnInit {
-  ngOnInit(): void {
 
+  @ViewChild('navChild') private myChild: NavbarComponent;
+
+  constructor(private appService: AppService) { }
+
+  ngOnInit(): void {
   }
 }

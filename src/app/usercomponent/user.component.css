@@ -1,0 +1,141 @@
+/* .bg-transparent {
+  background-color: transparent;
+}
+
+:host {
+  height: 100%;
+}
+
+/* .photo {
+  object-fit: contain;
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+  margin: 0 auto;
+} 
+
+.card {
+  width: 20rem;
+  margin: 0 auto;
+}
+
+.button-holder {
+  padding: 10px;
+}
+
+.before-login {
+  padding: 10px;
+  font-size: 24px;
+} */
+
+.side-main-menu {
+  width: 260px;
+  height: 100%;
+  border: 1px solid black;
+  position: fixed;
+  z-index: 1051;
+  top: auto;
+  color: #2b345f;
+  border-right: 1px solid #e4e7ed;
+  background: #fff;
+}
+
+.side-main-menu-header {
+  margin-top: 10px;
+  display: block;
+  z-index: 999;
+  float: left;
+  width: 260px;
+  color: #2b345f;
+}
+
+.brand-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  display: inline;
+  padding-left: 6px;
+  vertical-align: middle;
+  line-height: 1.2;
+  color: #464855;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.brand-logo {
+  width: 60px;
+  height: 60px;
+  vertical-align: middle;
+  border-radius: 1000px;
+}
+
+.side-main-menu-content {
+  position: relative;
+  clear: both;
+  height: calc(100% - 5rem);
+}
+
+.side-main-menu-content ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: auto;
+  height: 100%;
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 5px;
+}
+
+.navigation li {
+  list-style: none;
+  line-height: 2.5rem;
+  padding: 0;
+  margin: 1px auto;
+  position: relative;
+  white-space: nowrap;
+  display: list-item;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.menu-title:hover {
+  /* box-shadow: 0 0 20px rgba(253, 99, 107, 0.3); */
+  background-color: #fff;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  transform: translateX(4px);
+}
+
+.menu-title {
+  display: inline-block;
+  font-weight: 600;
+
+  left: 60px;
+
+  width: 260px;
+  padding: 18px 30px;
+
+  text-align: left;
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  /* color: #fff;
+  border-color: #fa626b;
+  background-color: #fa626b; */
+}
+
+.user-content {
+  margin-left: 260px;
+  /* border: 1px solid black; */
+  height: 100%;
+}
+
+nav-link {
+  text-decoration: none;
+}

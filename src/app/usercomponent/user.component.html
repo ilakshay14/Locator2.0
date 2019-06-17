@@ -1,3 +1,80 @@
-<p>
-  usercomponent works!
-</p>
+<!-- <div class="jumbotron bg-transparent text-center">
+  <div class="card text-center">
+    <h6 class="card-header">
+      User Profile
+    </h6>
+    <div class="card-block"></div>
+    <img
+      class="card-img-top img-responsive photo"
+      src="{{ this.user.photoUrl }}"
+    />
+    <div class="card-block">
+      <h4 class="card-title">{{ this.user.name }}</h4>
+      <p class="card-text">{{ this.user.email }}</p>
+    </div>
+    <div class="card-block button-holder">
+      <button class="btn btn-danger" (click)="signOut()">Sign out</button>
+    </div>
+  </div>
+</div> -->
+<div class="side-main-menu">
+  <div class="navbar-header side-main-menu-header">
+    <ul class="nav navbar-nav flex-row">
+      <li class="nav-item mr-auto">
+        <a href="" class="navbar-brand">
+          <img src="{{ this.user.photoURL }}" alt="br" class="brand-logo" />
+          <h3 class="brand-text">{{ this.user.name }}</h3>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="side-main-menu-content">
+    <ul class="navigation navigation-main">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          role="button"
+          [routerLink]="['/user/searchHistory']"
+        >
+          <span class="menu-title">Search History</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <span class="menu-title">
+          <a
+            class="nav-link"
+            role="button"
+            [routerLink]="['/user/searchHistory']"
+          >
+            Location History
+          </a>
+        </span>
+      </li>
+      <li class="nav-item">
+        <span class="menu-title">
+          <a
+            class="nav-link"
+            role="button"
+            [routerLink]="['/user/searchHistory']"
+          >
+            Favourites
+          </a>
+        </span>
+      </li>
+      <li class="nav-item">
+        <span class="menu-title">
+          <a
+            class="nav-link"
+            role="button"
+            [routerLink]="['/user/searchHistory']"
+          >
+            Wishlist
+          </a>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="user-content">
+  <router-outlet></router-outlet>
+</div>

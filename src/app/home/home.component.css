@@ -3,7 +3,7 @@
 } */
 
 .gmap {
-  width: 100%;
+  width: 0%;
   height: 0px;
 }
 
@@ -51,4 +51,16 @@ input:focus {
 
 .formLeft {
   float: left;
+}
+
+.container {
+  /* border: 1px solid black; */
+  /* margin-top: 10px;
+  margin-left: 20%;
+  padding: 5px auto; */
+  position: relative;
+}
+
+div img {
+  margin: 20px auto;
 }

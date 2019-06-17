@@ -1,0 +1,18 @@
+<div class="row" *ngIf="this.places.length > 0">
+  <div
+    class="col-xl-3 col-lg-auto col-md-auto col-sm-auto content"
+    *ngFor="let item of places"
+  >
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">{{ this.item.name }}</h4>
+      </div>
+      <div class="card-content">
+        <div class="card-body">
+          <p class="card-text">{{ this.item.formatted_address }}</p>
+          <p class="card-text">{{ this.item.price_level }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
